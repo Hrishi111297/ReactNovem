@@ -4,13 +4,12 @@ import RestCard from "./RestCard";
 import Shimmer from "./Shimmer";
 import useFetchData from "../Utils/customHooks/useFetchData";
 
-
 const Body = () => {
   let [restList, setRestList] = useState([]);
   let [searchData, setsearchData] = useState("");
   let [RederList, setRenderList] = useState([]);
 
-  const  data  = useFetchData();
+  const data = useFetchData();
   useEffect(() => {
     setRenderList(data);
     setRestList(data);
@@ -19,11 +18,11 @@ const Body = () => {
   return RederList.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="tool">
-        <div className="filter">
+    <div className="mt-20">
+      <div className="flex justify-between py-2">
+        <div className="flex ">
           <button
-            className="filter-btn"
+            className="bg-gray-200 w-40 h-10 rounded-lg  "
             onClick={() => {
               const filterList = restList.filter((r) => r.info.avgRating > 4.3);
               console.log(filterList);
@@ -33,16 +32,17 @@ const Body = () => {
             Filter Rating
           </button>
         </div>
-        <div className="searchBox">
+        <div className="">
           <input
             type="text"
+            className="mx-1 border-2 border-lime-950 w-40 h-8 rounded-lg "
             value={searchData}
             onChange={(e) => {
               setsearchData(e.target.value);
             }}
           ></input>
           <button
-            className="search-btn"
+            className="bg-gray-200 w-40 h-8 rounded-lg  "
             onClick={() => {
               let SerchedList = restList.filter((res) =>
                 res.info.name.toLowerCase().includes(searchData.toLowerCase())
@@ -54,7 +54,7 @@ const Body = () => {
           </button>
         </div>{" "}
       </div>
-      <div className="rest-container">
+      <div className=" flex flex-wrap">
         {RederList.map((data) => (
           <RestCard key={data.info.id} restData={data} />
         ))}
