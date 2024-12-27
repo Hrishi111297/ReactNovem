@@ -12,6 +12,8 @@ import {
 import About from "./src/Components/About";
 import Contacts from "./src/Components/Contacts";
 import Shimmer from "./src/Components/Shimmer";
+import WebSocketChat from "./src/Components/WebChatRoom";
+import WebChatRoom from "./src/Components/WebChatRoom";
 
 const AppLayout = () => {
   return (
@@ -41,9 +43,13 @@ const appRouter = createBrowserRouter([
         element: <Contacts />,
       },
       {
+        path: "/chat",
+        element: <WebChatRoom />,
+      },
+      {
         path: "/grocery",
         element: (
-          <Suspense fallback={<Shimmer/>}>
+          <Suspense fallback={<Shimmer />}>
             {" "}
             <Grocery />
           </Suspense>
