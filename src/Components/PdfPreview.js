@@ -58,7 +58,7 @@ const PdfPreview = ({ documentId }) => {
           type="application/pdf"
           width="80%"
           height="400vh"
-          style={{ border: "none",margin:'0 auto' }}
+          style={{ border: "none", margin: "0 auto" }}
         >
           <p>Your browser does not support PDFs.</p>
         </iframe>

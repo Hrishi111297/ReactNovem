@@ -1,12 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useOnlineStatus from "../Utils/customHooks/useOnlineStatus";
+import { removeToken } from "../Utils/Auth";
 
 const Header = () => {
-  const [loginhandle, setLoginHandle] = useState("Login");
-
+  const [loginhandle, setLoginHandle] = useState("Logout");
+  const navigate = useNavigate();
   const handleLogin = () => {
-    setLoginHandle(loginhandle === "Login" ? "Logout" : "Login");
+    if (loginhandle === "Logout") {
+      setLoginHandle("Logout");
+      removeToken();
+      navigate("/login");
+    } else {
+      setLoginHandle("Login");
+    }
   };
   const onlineStatus = useOnlineStatus();
 
@@ -15,7 +22,7 @@ const Header = () => {
       <div className="">
         <img
           className="w-20"
-          src="https://png.pngtree.com/png-vector/20211023/ourmid/pngtree-salon-logo-png-image_4004444.png"
+          src="https://dynamic.brandcrowd.com/preview/logodraft/428e27a5-6d1c-4886-8936-124d41ab87e7/image/large.png"
         />
       </div>
       <div className="flex ">

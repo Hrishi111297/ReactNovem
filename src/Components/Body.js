@@ -18,7 +18,7 @@ const Body = () => {
   return RederList.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="mt-20">
+    <div className="mt-20 bg-amber-50">
       <div className="flex justify-between py-2">
         <div className="flex ">
           <button

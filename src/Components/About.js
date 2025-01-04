@@ -2,6 +2,7 @@ import React from "react";
 import UserInfoFunction from "./UserInfoFunction";
 import UserInfoClass from "../Components/UserInfoClass";
 import PdfPreview from "./PdfPreview";
+import UserList from "./UserList";
 
 function About() {
   return (
@@ -12,7 +13,7 @@ function About() {
         name={"Hrishikesh for Class Component"}
         location={"pune"}
       />
-      <PdfPreview documentId={2} />
+      <UserList />
     </div>
   );
 }

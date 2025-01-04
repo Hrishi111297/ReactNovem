@@ -87,7 +87,7 @@ const WebChatRoom = () => {
       webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
       onConnect: () => {
         console.log("Connected to WebSocket");
-  
+
         if (user) {
           client.subscribe(`/topic/ws/${user}`, (message) => {
             console.log("Received message:", message.body);
@@ -98,10 +98,10 @@ const WebChatRoom = () => {
         }
       },
     });
-  
+
     client.activate();
     clientRef.current = client;
-  
+
     return () => {
       if (clientRef.current) clientRef.current.deactivate(); // Cleanup
     };

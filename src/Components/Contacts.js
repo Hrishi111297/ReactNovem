@@ -5,21 +5,17 @@ import ContactDetails from "./ContactDetails";
 class Contacts extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
- 
     return (
       <div className="userCard">
         <h1>ContactInfo</h1>
-        <ContactDetails/>
+        <ContactDetails />
       </div>
     );
   }
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 }
 
 export default Contacts;
