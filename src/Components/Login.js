@@ -3,7 +3,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useLoader } from "../Utils/LoaderContext";
 import useToast from "../Utils/customHooks/useToast";
-
+import { base_url } from "../Utils/dataList";
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [captchaImage, setCaptchaImage] = useState("");
@@ -20,7 +20,7 @@ const Login = () => {
 
   const fetchCaptcha = async () => {
     try {
-      const response = await fetch("http://localhost:8080/auth/captcha");
+      const response = await fetch(base_url + "/auth/captcha");
       const data = await response.json();
       setCaptchaImage(data.image); // Set CAPTCHA image
       setCaptchaText(data.text); // Set CAPTCHA text
@@ -39,32 +39,38 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
+    debugger;
     e.preventDefault();
     showLoader();
     if (userCaptchaInput !== captchaText) {
       toast("error", "CAPTCHA FAILED!!");
       fetchCaptcha();
       setUserCaptchaInput("");
+      hideLoader();
       return;
     }
 
     try {
       const body = JSON.stringify(formData);
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch(base_url + "/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: body,
       });
-
+      const data = await response.json();
+      console.log("data", data);
       if (response.ok) {
-        const data = await response.json();
+        debugger;
+
         toast("success", "Login successful!!");
         localStorage.setItem("token", data.token);
         setFormData({ username: "", password: "" });
         setUserCaptchaInput("");
         navigate("/");
       } else {
-        toast("error", "Login failed!!");
+        debugger;
+        const errorMessage = data.MESSAGE || "Login failed!!";
+        toast("error", errorMessage);
       }
     } catch (error) {
       toast("error", "Error during login:" + error);
@@ -74,9 +80,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-amber-50">
+    <div className="flex items-center justify-center min-h-screen bg-amber-50 ">
       <form
-        className="p-6 bg-white rounded shadow-md w-96"
+        className="p-6 bg-transparent  rounded shadow-md w-96"
         onSubmit={handleSubmit}
       >
         <h2 className="mb-4 text-2xl font-bold text-center">Login</h2>
@@ -145,19 +151,6 @@ const Login = () => {
           </p>
         </div>
       </form>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
     </div>
   );
 };
