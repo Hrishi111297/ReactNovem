@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useLoader } from "../Utils/LoaderContext";
 import useToast from "../Utils/customHooks/useToast";
 import { base_url } from "../Utils/dataList";
+import Loader from "./Loader";
+
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [captchaImage, setCaptchaImage] = useState("");
@@ -12,6 +14,7 @@ const Login = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const { showLoader, hideLoader } = useLoader();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchCaptcha();
@@ -41,12 +44,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     debugger;
     e.preventDefault();
-    showLoader();
+    //showLoader();
+    setLoading(true);
     if (userCaptchaInput !== captchaText) {
       toast("error", "CAPTCHA FAILED!!");
       fetchCaptcha();
       setUserCaptchaInput("");
-      hideLoader();
+      //  hideLoader();
+      setLoading(false);
       return;
     }
 
@@ -75,14 +80,15 @@ const Login = () => {
     } catch (error) {
       toast("error", "Error during login:" + error);
     } finally {
-      hideLoader();
+      setLoading(false);
+      //   hideLoader();
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-amber-50 ">
+    <div className=" relative flex items-center justify-center min-h-screen bg-amber-50 ">
       <form
-        className="p-6 bg-transparent  rounded shadow-md w-96"
+        className="p-6   bg-white rounded shadow-md w-96 "
         onSubmit={handleSubmit}
       >
         <h2 className="mb-4 text-2xl font-bold text-center">Login</h2>
@@ -151,6 +157,7 @@ const Login = () => {
           </p>
         </div>
       </form>
+      <Loader loading={loading} Modalstyle={{}} />
     </div>
   );
 };
