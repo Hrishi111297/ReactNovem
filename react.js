@@ -89,6 +89,7 @@ import Footer from "./src/Components/Footer";
 import { LoaderProvider } from "./src/Utils/LoaderContext";
 import Register from "./src/Components/Register";
 import ForgotPassword from "./src/Components/ForgotPassword";
+import Sidebar from "./src/Components/Sidebar";
 const Grocery = lazy(() => import("./src/Components/Grocery"));
 const WebChatRoom = lazy(() => import("./src/Components/WebChatRoom"));
 const AppLayout = () => {
